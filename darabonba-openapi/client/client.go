@@ -1079,7 +1079,7 @@ func (client *Client) Execute(params *openapiutil.Params, request *openapiutil.O
 		dara.Sleep(_backoffDelayTime)
 
 		request_ = dara.NewRequest()
-		// spi = new Gateway();//Gateway implements SPI，这一步在产品 SDK 中实例化
+		// spi = new Gateway();//Gateway implements SPI
 		headers, _err := client.GetRpcHeaders()
 		if _err != nil {
 			retriesAttempted++

@@ -647,9 +647,9 @@ func ToWriter(obj interface{}) io.Writer {
 func ToString(val interface{}) string {
 	switch v := val.(type) {
 	case []byte:
-		return string(v) // 将 []byte 转换为字符串
+		return string(v)
 	default:
-		return fmt.Sprintf("%v", v) // 处理其他类型
+		return fmt.Sprintf("%v", v)
 	}
 }
 
@@ -1096,7 +1096,6 @@ func BytesFromString(str string, typeStr string) []byte {
 		}
 	}
 
-	// 对于不支持的类型或解码失败，返回 nil
 	return nil
 }
 

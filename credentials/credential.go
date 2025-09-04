@@ -206,7 +206,7 @@ func NewCredential(config *Config) (credential Credential, err error) {
 		}
 		credential = newBearerTokenCredential(tea.StringValue(config.BearerToken))
 	default:
-		err = errors.New("invalid type option, support: access_key, sts, bearer, ecs_ram_role, ram_role_arn, rsa_key_pair, oidc_role_arn, credentials_uri")
+		err = errors.New("invalid type option, support: access_key, sts, bearer")
 		return
 	}
 	return credential, nil

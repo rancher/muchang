@@ -108,7 +108,6 @@ func parseEvent(eventLines []string) (SSEEvent, error) {
 }
 
 func getGID() uint64 {
-	// https://blog.sgmansfield.com/2015/12/goroutine-ids/
 	b := make([]byte, 64)
 	b = b[:runtime.Stack(b, false)]
 	b = bytes.TrimPrefix(b, []byte("goroutine "))
