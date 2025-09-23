@@ -17,10 +17,10 @@ func NewClient(config *openapiutil.Config) (*Client, error) {
 	return client, err
 }
 
-func (client *Client) Init(config *openapiutil.Config) (_err error) {
-	_err = client.Client.Init(config)
-	if _err != nil {
-		return _err
+func (client *Client) Init(config *openapiutil.Config) (err error) {
+	err = client.Client.Init(config)
+	if err != nil {
+		return err
 	}
 	client.EndpointRule = dara.String("regional")
 	client.EndpointMap = map[string]*string{
@@ -55,33 +55,33 @@ func (client *Client) Init(config *openapiutil.Config) (_err error) {
 		"eu-west-1-oxs":               dara.String("cs.aliyuncs.com"),
 		"rus-west-1-pop":              dara.String("cs.aliyuncs.com"),
 	}
-	_err = client.CheckConfig(config)
-	if _err != nil {
-		return _err
+	err = client.CheckConfig(config)
+	if err != nil {
+		return err
 	}
-	client.Endpoint, _err = client.GetEndpoint(dara.String("cs"), client.RegionId, client.EndpointRule, client.Network, client.Suffix, client.EndpointMap, client.Endpoint)
-	if _err != nil {
-		return _err
+	client.Endpoint, err = client.GetEndpoint(dara.String("cs"), client.RegionId, client.EndpointRule, client.Network, client.Suffix, client.EndpointMap, client.Endpoint)
+	if err != nil {
+		return err
 	}
 
 	return nil
 }
 
-func (client *Client) GetEndpoint(productId *string, regionId *string, endpointRule *string, network *string, suffix *string, endpointMap map[string]*string, endpoint *string) (_result *string, _err error) {
+func (client *Client) GetEndpoint(productId *string, regionId *string, endpointRule *string, network *string, suffix *string, endpointMap map[string]*string, endpoint *string) (result *string, err error) {
 	if !dara.IsNil(endpoint) {
-		_result = endpoint
-		return _result, _err
+		result = endpoint
+		return result, err
 	}
 
 	if !dara.IsNil(endpointMap) && !dara.IsNil(endpointMap[dara.StringValue(regionId)]) {
-		_result = endpointMap[dara.StringValue(regionId)]
-		return _result, _err
+		result = endpointMap[dara.StringValue(regionId)]
+		return result, err
 	}
 
-	_body, _err := openapiutil.GetEndpointRules(productId, regionId, endpointRule, network, suffix)
-	if _err != nil {
-		return _result, _err
+	body, err := openapiutil.GetEndpointRules(productId, regionId, endpointRule, network, suffix)
+	if err != nil {
+		return result, err
 	}
-	_result = _body
-	return _result, _err
+	result = body
+	return result, err
 }
