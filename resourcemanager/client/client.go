@@ -17,41 +17,41 @@ func NewClient(config *openapi.Config) (*Client, error) {
 	return client, err
 }
 
-func (client *Client) Init(config *openapi.Config) (_err error) {
-	_err = client.Client.Init(config)
-	if _err != nil {
-		return _err
+func (client *Client) Init(config *openapi.Config) (err error) {
+	err = client.Client.Init(config)
+	if err != nil {
+		return err
 	}
 	client.EndpointRule = tea.String("central")
-	_err = client.CheckConfig(config)
-	if _err != nil {
-		return _err
+	err = client.CheckConfig(config)
+	if err != nil {
+		return err
 	}
-	client.Endpoint, _err = client.GetEndpoint(tea.String("resourcemanager"), client.RegionId, client.EndpointRule, client.Network, client.Suffix, client.EndpointMap, client.Endpoint)
-	if _err != nil {
-		return _err
+	client.Endpoint, err = client.GetEndpoint(tea.String("resourcemanager"), client.RegionId, client.EndpointRule, client.Network, client.Suffix, client.EndpointMap, client.Endpoint)
+	if err != nil {
+		return err
 	}
 
 	return nil
 }
 
-func (client *Client) GetEndpoint(productId *string, regionId *string, endpointRule *string, network *string, suffix *string, endpointMap map[string]*string, endpoint *string) (_result *string, _err error) {
+func (client *Client) GetEndpoint(productId *string, regionId *string, endpointRule *string, network *string, suffix *string, endpointMap map[string]*string, endpoint *string) (result *string, err error) {
 	if !tea.BoolValue(util.Empty(endpoint)) {
-		_result = endpoint
-		return _result, _err
+		result = endpoint
+		return result, err
 	}
 
 	if !tea.BoolValue(util.IsUnset(endpointMap)) && !tea.BoolValue(util.Empty(endpointMap[tea.StringValue(regionId)])) {
-		_result = endpointMap[tea.StringValue(regionId)]
-		return _result, _err
+		result = endpointMap[tea.StringValue(regionId)]
+		return result, err
 	}
 
-	_body, _err := openapiutil.GetEndpointRules(productId, regionId, endpointRule, network, suffix)
-	if _err != nil {
-		return _result, _err
+	body, err := openapiutil.GetEndpointRules(productId, regionId, endpointRule, network, suffix)
+	if err != nil {
+		return result, err
 	}
-	_result = _body
-	return _result, _err
+	result = body
+	return result, err
 }
 
 type ListResourceGroupsRequestTag struct {
@@ -476,10 +476,10 @@ func (s *ListResourceGroupsRequest) SetTag(v []*ListResourceGroupsRequestTag) *L
 // @param runtime - runtime options for this request RuntimeOptions
 //
 // @return ListResourceGroupsResponse
-func (client *Client) ListResourceGroupsWithOptions(request *ListResourceGroupsRequest, runtime *util.RuntimeOptions) (_result *ListResourceGroupsResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
+func (client *Client) ListResourceGroupsWithOptions(request *ListResourceGroupsRequest, runtime *util.RuntimeOptions) (result *ListResourceGroupsResponse, err error) {
+	err = util.ValidateModel(request)
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !tea.BoolValue(util.IsUnset(request.DisplayName)) {
@@ -533,21 +533,21 @@ func (client *Client) ListResourceGroupsWithOptions(request *ListResourceGroupsR
 		BodyType:    tea.String("json"),
 	}
 	if tea.BoolValue(util.IsUnset(client.SignatureVersion)) || !tea.BoolValue(util.EqualString(client.SignatureVersion, tea.String("v4"))) {
-		_result = &ListResourceGroupsResponse{}
-		_body, _err := client.CallApi(params, req, runtime)
-		if _err != nil {
-			return _result, _err
+		result = &ListResourceGroupsResponse{}
+		body, err := client.CallApi(params, req, runtime)
+		if err != nil {
+			return result, err
 		}
-		_err = tea.Convert(_body, &_result)
-		return _result, _err
+		err = tea.Convert(body, &result)
+		return result, err
 	} else {
-		_result = &ListResourceGroupsResponse{}
-		_body, _err := client.Execute(params, req, runtime)
-		if _err != nil {
-			return _result, _err
+		result = &ListResourceGroupsResponse{}
+		body, err := client.Execute(params, req, runtime)
+		if err != nil {
+			return result, err
 		}
-		_err = tea.Convert(_body, &_result)
-		return _result, _err
+		err = tea.Convert(body, &result)
+		return result, err
 	}
 
 }
@@ -561,13 +561,13 @@ func (client *Client) ListResourceGroupsWithOptions(request *ListResourceGroupsR
 // @param request - ListResourceGroupsRequest
 //
 // @return ListResourceGroupsResponse
-func (client *Client) ListResourceGroups(request *ListResourceGroupsRequest) (_result *ListResourceGroupsResponse, _err error) {
+func (client *Client) ListResourceGroups(request *ListResourceGroupsRequest) (result *ListResourceGroupsResponse, err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &ListResourceGroupsResponse{}
-	_body, _err := client.ListResourceGroupsWithOptions(request, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &ListResourceGroupsResponse{}
+	body, err := client.ListResourceGroupsWithOptions(request, runtime)
+	if err != nil {
+		return result, err
 	}
-	_result = _body
-	return _result, _err
+	result = body
+	return result, err
 }
