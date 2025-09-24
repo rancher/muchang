@@ -465,17 +465,9 @@ func (s *ListResourceGroupsRequest) SetTag(v []*ListResourceGroupsRequestTag) *L
 	return s
 }
 
-// Description:
-//
-// You can call this API operation to query all resource groups within the current account. You can also call this API operation to query a specific resource group based on the status, ID, identifier, or display name of the resource group.
+// ListResourceGroupsWithOptions queries all resource groups within the current account. You can also call this API operation to query a specific resource group based on the status, ID, identifier, or display name of the resource group.
 //
 // This topic provides an example on how to call the API operation to query the basic information about the resource groups `rg-1hSBH2****` and `rg-9gLOoK****` within the current account.
-//
-// @param request - ListResourceGroupsRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return ListResourceGroupsResponse
 func (client *Client) ListResourceGroupsWithOptions(request *ListResourceGroupsRequest, runtime *util.RuntimeOptions) (result *ListResourceGroupsResponse, err error) {
 	err = util.ValidateModel(request)
 	if err != nil {
@@ -552,15 +544,9 @@ func (client *Client) ListResourceGroupsWithOptions(request *ListResourceGroupsR
 
 }
 
-// Description:
-//
-// You can call this API operation to query all resource groups within the current account. You can also call this API operation to query a specific resource group based on the status, ID, identifier, or display name of the resource group.
+// ListResourceGroups queries all resource groups within the current account. You can also call this API operation to query a specific resource group based on the status, ID, identifier, or display name of the resource group.
 //
 // This topic provides an example on how to call the API operation to query the basic information about the resource groups `rg-1hSBH2****` and `rg-9gLOoK****` within the current account.
-//
-// @param request - ListResourceGroupsRequest
-//
-// @return ListResourceGroupsResponse
 func (client *Client) ListResourceGroups(request *ListResourceGroupsRequest) (result *ListResourceGroupsResponse, err error) {
 	runtime := &util.RuntimeOptions{}
 	result = &ListResourceGroupsResponse{}
