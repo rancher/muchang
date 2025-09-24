@@ -7,19 +7,11 @@ import (
 	"github.com/rancher/muchang/utils/tea/dara"
 )
 
-// Summary:
-//
-// Queries Alibaba Cloud regions. When you call this operation, you can specify parameters, such as InstanceChargeType and ResourceType, in the request.
-//
-// @param request - DescribeRegionsRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeRegionsResponse
-func (client *Client) DescribeRegionsWithContext(ctx context.Context, request *DescribeRegionsRequest, runtime *dara.RuntimeOptions) (_result *DescribeRegionsResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeRegionsWithContext queries Alibaba Cloud regions. When you call this operation, you can specify
+func (client *Client) DescribeRegionsWithContext(ctx context.Context, request *DescribeRegionsRequest, runtime *dara.RuntimeOptions) (result *DescribeRegionsResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.AcceptLanguage) {
@@ -64,40 +56,33 @@ func (client *Client) DescribeRegionsWithContext(ctx context.Context, request *D
 		ReqBodyType: dara.String("formData"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeRegionsResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeRegionsResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries the details of all instance types or a specific instance type provided by Elastic Compute Service (ECS). You can understand the specifications and performance of instance types based on the response and select an instance type that meets your business requirements.
+// DescribeInstanceTypesWithContext queries the details of all instance types or a specific instance type provided by Elastic Compute Service (ECS).
+// You can understand the specifications and performance of instance types based on the response and select an instance type that meets your business requirements.
 //
 // Description:
 //
 //	  **Paged query**: You can set MaxResults to specify the maximum number of entries to return in a single call. If the number of entries to return exceeds the specified MaxResults value, the response includes a NextToken value. You can set NextToken to the return value and specify MaxResults in your next request to DescribeInstanceTypes to retrieve the next page of results.
 //
-//		- When you call this operation, if you do not set NextToken to paginate the results, only the first page of results is returned by default and includes a maximum of 100 entries. To retrieve further pages of results, set NextToken or pass filter conditions in your requests to DescribeInstanceTypes.
+//	- When you call this operation, if you do not set NextToken to paginate the results, only the first page of results is returned by default and includes a maximum of 100 entries. To retrieve further pages of results, set NextToken or pass filter conditions in your requests to DescribeInstanceTypes.
 //
 // >  MaxResults specifies the maximum number of entries per page. The maximum value of this parameter is changed from 1600 to 100 for all users as of November 15, 2023. If you called the DescribeInstanceTypes operation in 2022, you can use 1600 as the maximum value before November 15, 2023.
 //
 //   - The DescribeInstanceTypes operation is used to query only the specifications and performance information of instance types. To query instance types that are available in a specific region, call the [DescribeAvailableResource](https://help.aliyun.com/document_detail/66186.html) operation.
 //
 //   - To use special instance types such as instance types that are unavailable for purchase, [submit a ticket](https://smartservice.console.aliyun.com/service/create-ticket-intl).
-//
-// @param request - DescribeInstanceTypesRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeInstanceTypesResponse
-func (client *Client) DescribeInstanceTypesWithContext(ctx context.Context, request *DescribeInstanceTypesRequest, runtime *dara.RuntimeOptions) (_result *DescribeInstanceTypesResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+func (client *Client) DescribeInstanceTypesWithContext(ctx context.Context, request *DescribeInstanceTypesRequest, runtime *dara.RuntimeOptions) (result *DescribeInstanceTypesResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.AdditionalAttributes) {
@@ -306,28 +291,20 @@ func (client *Client) DescribeInstanceTypesWithContext(ctx context.Context, requ
 		ReqBodyType: dara.String("formData"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeInstanceTypesResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeInstanceTypesResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries one or more key pairs.
-//
-// @param request - DescribeKeyPairsRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeKeyPairsResponse
-func (client *Client) DescribeKeyPairsWithContext(ctx context.Context, request *DescribeKeyPairsRequest, runtime *dara.RuntimeOptions) (_result *DescribeKeyPairsResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeKeyPairsWithContext queries one or more key pairs.
+func (client *Client) DescribeKeyPairsWithContext(ctx context.Context, request *DescribeKeyPairsRequest, runtime *dara.RuntimeOptions) (result *DescribeKeyPairsResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.IncludePublicKey) {
@@ -388,18 +365,18 @@ func (client *Client) DescribeKeyPairsWithContext(ctx context.Context, request *
 		ReqBodyType: dara.String("formData"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeKeyPairsResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeKeyPairsResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries resources in a zone. You can query the resources available in a zone before you create Elastic Compute Service (ECS) instances by calling the RunInstances operation or before you change instance types by calling the ModifyInstanceSpec operation.
+// DescribeAvailableResourceWithContext queries resources in a zone. You can query the resources available in a zone
+// before you create Elastic Compute Service (ECS) instances by calling the RunInstances operation or before you
+// change instance types by calling the ModifyInstanceSpec operation.
 //
 // Description:
 //
@@ -426,50 +403,34 @@ func (client *Client) DescribeKeyPairsWithContext(ctx context.Context, request *
 // **To query the zones in which the ecs.g5.large instance type is available in the China (Hangzhou) region, specify parameters as follows:**
 //
 //	"RegionId": "cn-hangzhou",
-//
 //	"DestinationResource": "Zone",
-//
 //	"InstanceType": "ecs.g5.large"
 //
 // **To query the ecs.g5.large instance type in all zones of the China (Hangzhou) region, specify parameters as follows:**
 //
 //	"RegionId": "cn-hangzhou",
-//
-//	"DestinationResource": "InstanceType""InstanceType": "ecs.g5.large"
+//	"DestinationResource": "InstanceType",
+//	"InstanceType": "ecs.g5.large"
 //
 // **To query data disks of the ultra disk category in Hangzhou Zone B regardless of whether the disks are attached to ECS instances, specify parameters as follows:**
 //
 //	"RegionId": "cn-hangzhou",
-//
 //	"ZoneId": "cn-hangzhou-b",
-//
 //	"ResourceType": "disk",
-//
 //	"DestinationResource": "DataDisk"
 //
 // **To query data disks purchased together with ecs.g7.large instances that reside in Hangzhou Zone B and use Enterprise SSDs (ESSDs) as system disks, specify parameters as follows:**
 //
 //	"RegionId": "cn-hangzhou",
-//
 //	"ZoneId": "cn-hangzhou-b",
-//
 //	"ResourceType": "instance",
-//
 //	"InstanceType": "ecs.g7.large",
-//
 //	"DestinationResource": "SystemDisk",
-//
 //	"SystemDiskCategory": "cloud_essd"
-//
-// @param request - DescribeAvailableResourceRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeAvailableResourceResponse
-func (client *Client) DescribeAvailableResourceWithContext(ctx context.Context, request *DescribeAvailableResourceRequest, runtime *dara.RuntimeOptions) (_result *DescribeAvailableResourceResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+func (client *Client) DescribeAvailableResourceWithContext(ctx context.Context, request *DescribeAvailableResourceRequest, runtime *dara.RuntimeOptions) (result *DescribeAvailableResourceResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.Cores) {
@@ -566,34 +527,27 @@ func (client *Client) DescribeAvailableResourceWithContext(ctx context.Context, 
 		ReqBodyType: dara.String("formData"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeAvailableResourceResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeAvailableResourceResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries Alibaba Cloud regions. You can specify parameters, such as InstanceChargeType and ResourceType, in the request.
+// DescribeZonesWithContext queries Alibaba Cloud regions. You can specify parameters, such as InstanceChargeType and
+// ResourceType, in the request.
 //
 // Description:
 //
 // ## [](#)Usage notes
 //
 // When you call this operation, only a list of zones and some resource information of each zone are returned. If you want to query instance types and disk categories that are available for purchase in a specific zone, we recommend that you call the [DescribeAvailableResource](https://help.aliyun.com/document_detail/66186.html) operation.
-//
-// @param request - DescribeZonesRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeZonesResponse
-func (client *Client) DescribeZonesWithContext(ctx context.Context, request *DescribeZonesRequest, runtime *dara.RuntimeOptions) (_result *DescribeZonesResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+func (client *Client) DescribeZonesWithContext(ctx context.Context, request *DescribeZonesRequest, runtime *dara.RuntimeOptions) (result *DescribeZonesResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.AcceptLanguage) {
@@ -646,28 +600,21 @@ func (client *Client) DescribeZonesWithContext(ctx context.Context, request *Des
 		ReqBodyType: dara.String("formData"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeZonesResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeZonesResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries the Elastic Compute Service (ECS) instance types supported by an image.
-//
-// @param request - DescribeImageSupportInstanceTypesRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeImageSupportInstanceTypesResponse
-func (client *Client) DescribeImageSupportInstanceTypesWithContext(ctx context.Context, request *DescribeImageSupportInstanceTypesRequest, runtime *dara.RuntimeOptions) (_result *DescribeImageSupportInstanceTypesResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeImageSupportInstanceTypesWithContext queries the Elastic Compute Service (ECS) instance types supported
+// by an image.
+func (client *Client) DescribeImageSupportInstanceTypesWithContext(ctx context.Context, request *DescribeImageSupportInstanceTypesRequest, runtime *dara.RuntimeOptions) (result *DescribeImageSupportInstanceTypesResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.ActionType) {
@@ -712,11 +659,11 @@ func (client *Client) DescribeImageSupportInstanceTypesWithContext(ctx context.C
 		ReqBodyType: dara.String("formData"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeImageSupportInstanceTypesResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeImageSupportInstanceTypesResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
