@@ -7,19 +7,11 @@ import (
 	"github.com/rancher/muchang/utils/tea/dara"
 )
 
-// Summary:
-//
-// Queries virtual private clouds (VPCs).
-//
-// @param request - DescribeVpcsRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeVpcsResponse
-func (client *Client) DescribeVpcsWithContext(ctx context.Context, request *DescribeVpcsRequest, runtime *dara.RuntimeOptions) (_result *DescribeVpcsResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeVpcsWithContext queries virtual private clouds (VPCs).
+func (client *Client) DescribeVpcsWithContext(ctx context.Context, request *DescribeVpcsRequest, runtime *dara.RuntimeOptions) (result *DescribeVpcsResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.DhcpOptionsSetId) {
@@ -100,28 +92,20 @@ func (client *Client) DescribeVpcsWithContext(ctx context.Context, request *Desc
 		ReqBodyType: dara.String("formData"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeVpcsResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeVpcsResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries the information about available vSwitches that are used for an internal network.
-//
-// @param request - DescribeVSwitchesRequest
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeVSwitchesResponse
-func (client *Client) DescribeVSwitchesWithContext(ctx context.Context, request *DescribeVSwitchesRequest, runtime *dara.RuntimeOptions) (_result *DescribeVSwitchesResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeVSwitchesWithContext queries the information about available vSwitches that are used for an internal network.
+func (client *Client) DescribeVSwitchesWithContext(ctx context.Context, request *DescribeVSwitchesRequest, runtime *dara.RuntimeOptions) (result *DescribeVSwitchesResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.DryRun) {
@@ -210,11 +194,11 @@ func (client *Client) DescribeVSwitchesWithContext(ctx context.Context, request 
 		ReqBodyType: dara.String("formData"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeVSwitchesResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeVSwitchesResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
