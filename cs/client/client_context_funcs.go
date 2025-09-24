@@ -7,37 +7,25 @@ import (
 	"github.com/rancher/muchang/utils/tea/dara"
 )
 
-// Summary:
+// CreateClusterWithContext creates a Container Service for Kubernetes (ACK) cluster. For example, you can create an ACK managed cluster, ACK Serverless cluster, ACK Edge cluster, or registered cluster. When you create an ACK cluster, you need to configure the cluster information, components, and cloud resources used by ACK.
 //
-// Creates a Container Service for Kubernetes (ACK) cluster. For example, you can create an ACK managed cluster, ACK Serverless cluster, ACK Edge cluster, or registered cluster. When you create an ACK cluster, you need to configure the cluster information, components, and cloud resources used by ACK.
-//
-// Description:
-//
-// ### [](#-openapi-)Generate API request parameters through the ACK console
+// # Generate API request parameters through the ACK console
 //
 // When calling the CreateCluster operation to create a cluster, if the API call fails due to invalid parameter settings, you can generate valid request parameters through the ACK console. Follow these steps:
 //
 // 1.  Log on to the [ACK console](https://csnew.console.aliyun.com). In the left-side navigation pane, click **Clusters**.
 //
-// 2.  On the **Clusters*	- page, click **Cluster Templates**.
+// 2.  On the Clusters page, click **Cluster Templates**.
 //
 // 3.  In the Select Cluster Template dialog box, select the type of cluster you want to create and click Create. Then, configure the cluster parameters.
 //
-// 4.  In the **Confirm*	- step, click **Generate API Request Parameters**.
+// 4.  In the Confirm step, click **Generate API Request Parameters**.
 //
-//	The API request parameters are displayed in the API Request Parameters dialog box.
-//
-// @param request - CreateClusterRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return CreateClusterResponse
-func (client *Client) CreateClusterWithContext(ctx context.Context, request *CreateClusterRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *CreateClusterResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// The API request parameters are displayed in the API Request Parameters dialog box.
+func (client *Client) CreateClusterWithContext(ctx context.Context, request *CreateClusterRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *CreateClusterResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	body := map[string]interface{}{}
 	if !dara.IsNil(request.AccessControlList) {
@@ -463,30 +451,23 @@ func (client *Client) CreateClusterWithContext(ctx context.Context, request *Cre
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &CreateClusterResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &CreateClusterResponse{}
+	respBody, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(respBody, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Creates a node pool for a Container Service for Kubernetes (ACK) cluster. You can use node pools to facilitate node management. For example, you can schedule, configure, or maintain nodes by node pool, and enable auto scaling for a node pool. We recommend that you use a managed node pool, which can help automate specific O\\\\\\&M tasks for nodes, such as Common Vulnerabilities and Exposures (CVE) patching and node repair. This reduces your O\\\\\\&M workload.
-//
-// @param request - CreateClusterNodePoolRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return CreateClusterNodePoolResponse
-func (client *Client) CreateClusterNodePoolWithContext(ctx context.Context, ClusterId *string, request *CreateClusterNodePoolRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *CreateClusterNodePoolResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// CreateClusterNodePoolWithContext creates a node pool for a Container Service for Kubernetes (ACK) cluster.
+// You can use node pools to facilitate node management. For example, you can schedule, configure, or maintain nodes by node pool, and enable auto scaling for a node pool.
+// We recommend that you use a managed node pool, which can help automate specific O&M tasks for nodes, such as Common Vulnerabilities and Exposures (CVE) patching and node repair.
+// This reduces your O&M workload.
+func (client *Client) CreateClusterNodePoolWithContext(ctx context.Context, ClusterId *string, request *CreateClusterNodePoolRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *CreateClusterNodePoolResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	body := map[string]interface{}{}
 	if !dara.IsNil(request.AutoMode) {
@@ -564,24 +545,21 @@ func (client *Client) CreateClusterNodePoolWithContext(ctx context.Context, Clus
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &CreateClusterNodePoolResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &CreateClusterNodePoolResponse{}
+	respBody, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(respBody, &result)
+	return result, err
 }
 
-// Summary:
+// DeleteClusterWithContext deletes a cluster and allows specifying whether to delete or retain relevant cluster resources.
+// Before you delete a cluster, you must manually delete workloads in the cluster, such as Deployments, StatefulSets, Jobs, and CronJobs. Otherwise, you may fail to delete the cluster.
 //
-// You can call the DeleteCluster operation to delete a cluster and specify whether to delete or retain the relevant cluster resources. Before you delete a cluster, you must manually delete workloads in the cluster, such as Deployments, StatefulSets, Jobs, and CronJobs. Otherwise, you may fail to delete the cluster.
+// # Warning
 //
-// Description:
-//
-// Warning:
-//
-//   - Subscription ECS instances and Lingjun nodes in a cluster cannot be automatically released. To avoid unnecessary costs, we recommend that you manually release the resources. For more information, see \\<a href="{0}" target="_blank">Rules for deleting clusters and releasing nodes\\</a>.
+//   - Subscription ECS instances and Lingjun nodes in a cluster cannot be automatically released. To avoid unnecessary costs, we recommend that you manually release the resources. For more information, see [Rules for deleting clusters and releasing nodes](https://help.aliyun.com/document_detail/86758.html).
 //
 //   - If the SLB instance of the API server uses the subscription billing method, it cannot be automatically released. To avoid unnecessary costs, we recommend that you manually release it.
 //
@@ -590,18 +568,10 @@ func (client *Client) CreateClusterNodePoolWithContext(ctx context.Context, Clus
 //   - Elastic container instances created on virtual nodes are automatically released.
 //
 //   - Some resources created together with a cluster are not automatically released when the cluster is deleted. After the cluster is deleted, you are still charged for the resources. Release or retain the resources based on your actual needs. The resources include Simple Log Service projects automatically created by the cluster and dynamically provisioned disks.
-//
-// @param tmpReq - DeleteClusterRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DeleteClusterResponse
-func (client *Client) DeleteClusterWithContext(ctx context.Context, ClusterId *string, tmpReq *DeleteClusterRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DeleteClusterResponse, _err error) {
-	_err = tmpReq.Validate()
-	if _err != nil {
-		return _result, _err
+func (client *Client) DeleteClusterWithContext(ctx context.Context, ClusterId *string, tmpReq *DeleteClusterRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DeleteClusterResponse, err error) {
+	err = tmpReq.Validate()
+	if err != nil {
+		return result, err
 	}
 	request := &DeleteClusterShrinkRequest{}
 	openapiutil.Convert(tmpReq, request)
@@ -645,30 +615,20 @@ func (client *Client) DeleteClusterWithContext(ctx context.Context, ClusterId *s
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DeleteClusterResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DeleteClusterResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// null
-//
-// @param request - DeleteClusterNodepoolRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DeleteClusterNodepoolResponse
-func (client *Client) DeleteClusterNodepoolWithContext(ctx context.Context, ClusterId *string, NodepoolId *string, request *DeleteClusterNodepoolRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DeleteClusterNodepoolResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DeleteClusterNodepoolWithContext deletes a node pool from a cluster.
+func (client *Client) DeleteClusterNodepoolWithContext(ctx context.Context, ClusterId *string, NodepoolId *string, request *DeleteClusterNodepoolRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DeleteClusterNodepoolResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.Force) {
@@ -690,25 +650,17 @@ func (client *Client) DeleteClusterNodepoolWithContext(ctx context.Context, Clus
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DeleteClusterNodepoolResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DeleteClusterNodepoolResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// You can call the DescribeClusterDetail operation to query the details of a Container Service for Kubernetes (ACK) cluster by cluster ID.
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeClusterDetailResponse
-func (client *Client) DescribeClusterDetailWithContext(ctx context.Context, ClusterId *string, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DescribeClusterDetailResponse, _err error) {
+// DescribeClusterDetailWithContext queries the details of a Container Service for Kubernetes (ACK) cluster by cluster ID.
+func (client *Client) DescribeClusterDetailWithContext(ctx context.Context, ClusterId *string, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DescribeClusterDetailResponse, err error) {
 	req := &openapiutil.OpenApiRequest{
 		Headers: headers,
 	}
@@ -723,30 +675,20 @@ func (client *Client) DescribeClusterDetailWithContext(ctx context.Context, Clus
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeClusterDetailResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeClusterDetailResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries the information about all node pools in a cluster.
-//
-// @param request - DescribeClusterNodePoolsRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeClusterNodePoolsResponse
-func (client *Client) DescribeClusterNodePoolsWithContext(ctx context.Context, ClusterId *string, request *DescribeClusterNodePoolsRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DescribeClusterNodePoolsResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeClusterNodePoolsWithContext queries the information about all node pools in a cluster.
+func (client *Client) DescribeClusterNodePoolsWithContext(ctx context.Context, ClusterId *string, request *DescribeClusterNodePoolsRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DescribeClusterNodePoolsResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.NodepoolName) {
@@ -768,30 +710,20 @@ func (client *Client) DescribeClusterNodePoolsWithContext(ctx context.Context, C
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeClusterNodePoolsResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeClusterNodePoolsResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// null
-//
-// @param request - DescribeClusterNodesRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeClusterNodesResponse
-func (client *Client) DescribeClusterNodesWithContext(ctx context.Context, ClusterId *string, request *DescribeClusterNodesRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DescribeClusterNodesResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeClusterNodesWithContext queries the nodes in a specified cluster.
+func (client *Client) DescribeClusterNodesWithContext(ctx context.Context, ClusterId *string, request *DescribeClusterNodesRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DescribeClusterNodesResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.InstanceIds) {
@@ -829,36 +761,25 @@ func (client *Client) DescribeClusterNodesWithContext(ctx context.Context, Clust
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeClusterNodesResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeClusterNodesResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
+// DescribeClusterUserKubeconfigWithContext retrieves the kubeconfig file for a cluster.
 // Kubeconfig files store identity and authentication information that is used by clients to access Container Service for Kubernetes (ACK) clusters. To use a kubectl client to manage an ACK cluster, you need to use the corresponding kubeconfig file to connect to the ACK cluster. We recommend that you keep kubeconfig files confidential and revoke kubeconfig files that are not in use. This helps prevent data leaks caused by the disclosure of kubeconfig files.
 //
-// Description:
+// The default validity period of a kubeconfig file is 3 years. 180 days before a kubeconfig file expires, you can renew it in the Container Service for Kubernetes (ACK) console or by calling API operations. After a kubeconfig file is renewed, the kubeconfig file is valid for 3 years. The previous kubeconfig file still remains valid until expiration. We recommend that you renew your kubeconfig file at the earliest opportunity.
 //
-//	  The default validity period of a kubeconfig file is 3 years. 180 days before a kubeconfig file expires, you can renew it in the Container Service for Kubernetes (ACK) console or by calling API operations. After a kubeconfig file is renewed, the kubeconfig file is valid for 3 years. The previous kubeconfig file still remains valid until expiration. We recommend that you renew your kubeconfig file at the earliest opportunity.
-//
-//		- We recommend that you keep kubeconfig files confidential and revoke kubeconfig files that are not in use. This helps prevent data leaks caused by the disclosure of kubeconfig files.
-//
-// @param request - DescribeClusterUserKubeconfigRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeClusterUserKubeconfigResponse
-func (client *Client) DescribeClusterUserKubeconfigWithContext(ctx context.Context, ClusterId *string, request *DescribeClusterUserKubeconfigRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DescribeClusterUserKubeconfigResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// We recommend that you keep kubeconfig files confidential and revoke kubeconfig files that are not in use. This helps prevent data leaks caused by the disclosure of kubeconfig files.
+func (client *Client) DescribeClusterUserKubeconfigWithContext(ctx context.Context, ClusterId *string, request *DescribeClusterUserKubeconfigRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DescribeClusterUserKubeconfigResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.PrivateIpAddress) {
@@ -884,30 +805,20 @@ func (client *Client) DescribeClusterUserKubeconfigWithContext(ctx context.Conte
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeClusterUserKubeconfigResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeClusterUserKubeconfigResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries all clusters in a specified region.
-//
-// @param request - DescribeClustersForRegionRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeClustersForRegionResponse
-func (client *Client) DescribeClustersForRegionWithContext(ctx context.Context, regionId *string, request *DescribeClustersForRegionRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DescribeClustersForRegionResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeClustersForRegionWithContext queries all clusters in a specified region.
+func (client *Client) DescribeClustersForRegionWithContext(ctx context.Context, regionId *string, request *DescribeClustersForRegionRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DescribeClustersForRegionResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.ClusterId) {
@@ -953,30 +864,21 @@ func (client *Client) DescribeClustersForRegionWithContext(ctx context.Context, 
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeClustersForRegionResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeClustersForRegionResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries the detailed information about Kubernetes versions, including the version number, release date, expiration date, compatible OSs, and runtime.
-//
-// @param request - DescribeKubernetesVersionMetadataRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeKubernetesVersionMetadataResponse
-func (client *Client) DescribeKubernetesVersionMetadataWithContext(ctx context.Context, request *DescribeKubernetesVersionMetadataRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DescribeKubernetesVersionMetadataResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// DescribeKubernetesVersionMetadataWithContext queries the detailed information about Kubernetes versions,
+// including the version number, release date, expiration date, compatible OSs, and runtime.
+func (client *Client) DescribeKubernetesVersionMetadataWithContext(ctx context.Context, request *DescribeKubernetesVersionMetadataRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DescribeKubernetesVersionMetadataResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	query := map[string]interface{}{}
 	if !dara.IsNil(request.ClusterType) {
@@ -1022,25 +924,17 @@ func (client *Client) DescribeKubernetesVersionMetadataWithContext(ctx context.C
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("array"),
 	}
-	_result = &DescribeKubernetesVersionMetadataResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeKubernetesVersionMetadataResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// Queries detailed information about a task, such as the task type, status, and progress.
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return DescribeTaskInfoResponse
-func (client *Client) DescribeTaskInfoWithContext(ctx context.Context, taskId *string, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *DescribeTaskInfoResponse, _err error) {
+// DescribeTaskInfoWithContext queries detailed information about a task, such as the task type, status, and progress.
+func (client *Client) DescribeTaskInfoWithContext(ctx context.Context, taskId *string, headers map[string]*string, runtime *dara.RuntimeOptions) (result *DescribeTaskInfoResponse, err error) {
 	req := &openapiutil.OpenApiRequest{
 		Headers: headers,
 	}
@@ -1055,30 +949,20 @@ func (client *Client) DescribeTaskInfoWithContext(ctx context.Context, taskId *s
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &DescribeTaskInfoResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &DescribeTaskInfoResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
-//
-// You can call the ModifyClusterNodePool operation to modify the configuration of a node pool with the specified node pool ID.
-//
-// @param request - ModifyClusterNodePoolRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return ModifyClusterNodePoolResponse
-func (client *Client) ModifyClusterNodePoolWithContext(ctx context.Context, ClusterId *string, NodepoolId *string, request *ModifyClusterNodePoolRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *ModifyClusterNodePoolResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+// ModifyClusterNodePoolWithContext modifies the configuration of a node pool with the specified node pool ID.
+func (client *Client) ModifyClusterNodePoolWithContext(ctx context.Context, ClusterId *string, NodepoolId *string, request *ModifyClusterNodePoolRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *ModifyClusterNodePoolResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	body := map[string]interface{}{}
 	if !dara.IsNil(request.AutoScaling) {
@@ -1128,42 +1012,28 @@ func (client *Client) ModifyClusterNodePoolWithContext(ctx context.Context, Clus
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &ModifyClusterNodePoolResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &ModifyClusterNodePoolResponse{}
+	respBody, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(respBody, &result)
+	return result, err
 }
 
-// Summary:
+// RemoveNodePoolNodesWithContext removes nodes from a node pool.
 //
-// Removes nodes from a node pool.
+// # Description
+// When you remove a node, the pods on the node are migrated to other nodes. This may cause service interruptions. We recommend that you remove nodes during off-peak hours.
 //
-// Description:
-//
-//	  When you remove a node, the pods on the node are migrated to other nodes. This may cause service interruptions. We recommend that you remove nodes during off-peak hours.
-//
-//		- The operation may have unexpected risks. Back up the data before you perform this operation.
-//
-//		- Nodes remain in the Unschedulable state when they are being removed.
-//
-//		- The system removes only worker nodes. It does not remove master nodes.
-//
-//		- Even if you set the `release_node` parameter to `true`, subscription nodes are not released. You must release the subscription nodes in the [ECS console](https://ecs.console.aliyun.com/) after you remove the nodes.
-//
-// @param tmpReq - RemoveNodePoolNodesRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return RemoveNodePoolNodesResponse
-func (client *Client) RemoveNodePoolNodesWithContext(ctx context.Context, ClusterId *string, NodepoolId *string, tmpReq *RemoveNodePoolNodesRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *RemoveNodePoolNodesResponse, _err error) {
-	_err = tmpReq.Validate()
-	if _err != nil {
-		return _result, _err
+//   - The operation may have unexpected risks. Back up the data before you perform this operation.
+//   - Nodes remain in the Unschedulable state when they are being removed.
+//   - The system removes only worker nodes. It does not remove master nodes.
+//   - Even if you set the `release_node` parameter to `true`, subscription nodes are not released. You must release the subscription nodes in the [ECS console](https://ecs.console.aliyun.com/) after you remove the nodes.
+func (client *Client) RemoveNodePoolNodesWithContext(ctx context.Context, ClusterId *string, NodepoolId *string, tmpReq *RemoveNodePoolNodesRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *RemoveNodePoolNodesResponse, err error) {
+	err = tmpReq.Validate()
+	if err != nil {
+		return result, err
 	}
 	request := &RemoveNodePoolNodesShrinkRequest{}
 	openapiutil.Convert(tmpReq, request)
@@ -1211,20 +1081,19 @@ func (client *Client) RemoveNodePoolNodesWithContext(ctx context.Context, Cluste
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &RemoveNodePoolNodesResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &RemoveNodePoolNodesResponse{}
+	body, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(body, &result)
+	return result, err
 }
 
-// Summary:
+// UpgradeClusterWithContext manually upgrades a cluster.
+// Outdated Kubernetes versions may have security and stability issues. We recommend that you update the Kubernetes version of your cluster at the earliest opportunity to enjoy the new features of the new Kubernetes version.
 //
-// Outdated Kubernetes versions may have security and stability issues. We recommend that you update the Kubernetes version of your cluster at the earliest opportunity to enjoy the new features of the new Kubernetes version. You can call the UpgradeCluster operation to manually upgrade a cluster.
-//
-// Description:
+// # Description
 //
 // After successfully calling the UpgradeCluster interface, this API returns the `task_id` of the upgrade task. You can manage this operation task by calling the following task APIs:
 //
@@ -1235,18 +1104,10 @@ func (client *Client) RemoveNodePoolNodesWithContext(ctx context.Context, Cluste
 // - [Call ResumeTask to resume a task that has been paused](https://help.aliyun.com/document_detail/2667987.html)
 //
 // - [Call CancelTask to cancel a running task](https://help.aliyun.com/document_detail/2667988.html)
-//
-// @param request - UpgradeClusterRequest
-//
-// @param headers - map
-//
-// @param runtime - runtime options for this request RuntimeOptions
-//
-// @return UpgradeClusterResponse
-func (client *Client) UpgradeClusterWithContext(ctx context.Context, ClusterId *string, request *UpgradeClusterRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (_result *UpgradeClusterResponse, _err error) {
-	_err = request.Validate()
-	if _err != nil {
-		return _result, _err
+func (client *Client) UpgradeClusterWithContext(ctx context.Context, ClusterId *string, request *UpgradeClusterRequest, headers map[string]*string, runtime *dara.RuntimeOptions) (result *UpgradeClusterResponse, err error) {
+	err = request.Validate()
+	if err != nil {
+		return result, err
 	}
 	body := map[string]interface{}{}
 	if !dara.IsNil(request.ComponentName) {
@@ -1284,11 +1145,11 @@ func (client *Client) UpgradeClusterWithContext(ctx context.Context, ClusterId *
 		ReqBodyType: dara.String("json"),
 		BodyType:    dara.String("json"),
 	}
-	_result = &UpgradeClusterResponse{}
-	_body, _err := client.CallApiWithCtx(ctx, params, req, runtime)
-	if _err != nil {
-		return _result, _err
+	result = &UpgradeClusterResponse{}
+	respBody, err := client.CallApiWithCtx(ctx, params, req, runtime)
+	if err != nil {
+		return result, err
 	}
-	_err = dara.Convert(_body, &_result)
-	return _result, _err
+	err = dara.Convert(respBody, &result)
+	return result, err
 }
