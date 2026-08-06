@@ -8,7 +8,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2
 	github.com/stretchr/testify v1.11.1
 	github.com/tjfoc/gmsm v1.4.1
-	golang.org/x/net v0.43.0
+	golang.org/x/net v0.56.0
 )
 
 require (
