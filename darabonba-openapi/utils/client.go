@@ -33,7 +33,7 @@ import (
 
 	models "github.com/rancher/muchang/darabonba-openapi/models"
 	"github.com/rancher/muchang/utils/tea/dara"
-	"github.com/tjfoc/gmsm/sm3"
+	"github.com/tjfoc/gmsm/v2/sm3"
 )
 
 var defaultUserAgent = fmt.Sprintf("AlibabaCloud (%s; %s) Golang/%s Core/%s TeaDSL/2", runtime.GOOS, runtime.GOARCH, strings.Trim(runtime.Version(), "go"), "0.01")
